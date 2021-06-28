@@ -2,4 +2,3 @@ node_modules
 Procfile
 
 ./client/node_modules
-# ./client/build
