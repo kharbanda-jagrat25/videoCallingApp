@@ -8,20 +8,20 @@ const SocketContext = createContext()
 const socket = io('https://video-calling-web-app.herokuapp.com')
 
 const ContextProvider = ({ children }) => {
+  const [callAccepted, setCallAccepted] = useState(false)
+  const [callEnded, setCallEnded] = useState(false)
   const [stream, setStream] = useState(null)
+  const [name, setName] = useState('')
+  const [call, setCall] = useState({})
   const [me, setMe] = useState('')
-  const [call, setCall] = useState({});
-  const [callAccepted, setCallAccepted] = useState(false);
-  const [callEnded, setCallEnded] = useState(false);
-  const [name, setName] = useState('');
 
   const myVideo = useRef()
-  const userVideo = useRef();
-  const connectionRef = useRef();
+  const userVideo = useRef()
+  const connectionRef = useRef()
 
   useEffect(() => {
     // Requesting permissions from the user
-    navigator.mediaDevices.getUserMedia({ video: true, media: true })
+    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
       .then((currentStream) => {
         setStream(currentStream)
 
