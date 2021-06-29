@@ -14,6 +14,7 @@ const ContextProvider = ({ children }) => {
   const [name, setName] = useState('')
   const [call, setCall] = useState({})
   const [me, setMe] = useState('')
+  const [callingOrNot, setCallingOrNot] = useState(false)
 
   const myVideo = useRef()
   const userVideo = useRef()
@@ -55,6 +56,7 @@ const ContextProvider = ({ children }) => {
   }
 
   const callUser = (id) => {
+    setCallingOrNot(true)
     const peer = new Peer({ initiator: true, trickle: false, stream })
 
     peer.on('signal', (data) => {
@@ -67,6 +69,7 @@ const ContextProvider = ({ children }) => {
 
     socket.on('callAccepted', (signal) => {
       setCallAccepted(true)
+      setCallingOrNot(false)
 
       peer.signal(signal)
     })
@@ -85,6 +88,7 @@ const ContextProvider = ({ children }) => {
   const value = {
     call,
     callAccepted,
+    callingOrNot,
     myVideo,
     userVideo,
     stream,

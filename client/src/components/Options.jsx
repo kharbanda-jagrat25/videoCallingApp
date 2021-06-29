@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Options = ({ children }) => {
-  const { me, callAccepted, name, setName, callEnded, leaveCall, callUser } = useContext(SocketContext)
+  const { me, callAccepted, name, setName, callEnded, leaveCall, callUser, callingOrNot } = useContext(SocketContext)
   const [idToCall, setIdToCall] = useState('')
   const classes = useStyles()
 
@@ -65,7 +65,7 @@ const Options = ({ children }) => {
                 </Button>
               ) : (
                 <Button variant="contained" color="primary" startIcon={<Phone fontSize="large" />} fullWidth onClick={() => callUser(idToCall)} className={classes.margin}>
-                  Call
+                  {callingOrNot ? 'Calling...' : 'Call'}
                 </Button>
               )}
             </Grid>
